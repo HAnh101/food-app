@@ -1,0 +1,33 @@
+body .dark {
+  --primary-color: #EA7C69;
+  --secondary-color: #9288E0;
+  --white-color: #FFFFFF;
+  --text-dark: #3B5162;
+  --text-gray: #889898;
+  --text-light: #ABBBC2;
+  --text-lighter: #E0E6E9;
+  --bg: #FAFAFA;
+  --bg-line: #393C49;
+  --bg-dark-1: #252836;
+  --bg-dark-2: #1F1D2B;
+  --bg-form: #2D303E;
+  --green-color: #50D1AA;
+  --red-color: #FF7CA3;
+  --orange-color: #FFB572;
+  --blue-color: #65B0F6;
+  --purple-color: #9290FE;
+}
+
+body .container {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: var(--bg-dark-1);
+}
+
+.title-color {
+  color: var(--primary-color);
+}
+
+svg {
+  color: var(--primary-color);
+}
