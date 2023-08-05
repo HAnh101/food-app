@@ -8,7 +8,6 @@ function Authentication() {
             <Link to="/book-table">
                 <div>
                     <UserOutlined />
-                    <br />
                     <span className="title-color">
                         User
                     </span>
@@ -17,7 +16,6 @@ function Authentication() {
             <Link to="/login">
                 <div>
                     <SettingOutlined />
-                    <br />
                     <span className="title-color">
                         Admin
                     </span>
