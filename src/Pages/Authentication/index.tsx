@@ -4,21 +4,25 @@ import { SettingOutlined, UserOutlined } from "@ant-design/icons";
 
 function Authentication() {
     return (
-        <main className="authentication">
-            <div>
-                <UserOutlined />
-                <br />
-                <span className="title-color">
-                    User
-                </span>
-            </div>
-            <div>
-                <SettingOutlined />
-                <br />
-                <span className="title-color">
-                    Admin
-                </span>
-            </div>
+        <main className="authentication flex items-center justify-evenly flex-col lg:flex-row">
+            <Link to="/book-table">
+                <div>
+                    <UserOutlined />
+                    <br />
+                    <span className="title-color">
+                        User
+                    </span>
+                </div>
+            </Link>
+            <Link to="/login">
+                <div>
+                    <SettingOutlined />
+                    <br />
+                    <span className="title-color">
+                        Admin
+                    </span>
+                </div>
+            </Link>
         </main>
     )
 }
