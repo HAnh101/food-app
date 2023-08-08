@@ -1,19 +1,43 @@
 import {RouterProvider, createBrowserRouter} from 'react-router-dom'
+import Layout from './Components/Layout';
 import './App.css';
-import { ConfigProvider, Layout } from 'antd'
+import { ConfigProvider } from 'antd'
+
+import BookTable from './Pages/BookTable';
+import Login from './Pages/Login'
 import Authentication from './Pages/Authentication'
 
 const router = createBrowserRouter ([
   {
-    // path: "/",
-    // element: <Layout />,
-    // children: [
-    //   {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
         path: "/authentication",
         element: <Authentication />
-    //   }
-    // ]
-  }
+      },
+      {
+        path: "/book-table",
+        element: <BookTable />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      },
+    ]
+  },
+  {
+    path: "/authentication",
+    element: <Authentication />
+  },
+  {
+    path: "/book-table",
+    element: <BookTable />
+  },
+  {
+    path: "/login",
+    element: <Login />
+  },
 ])
 
 function App() {
