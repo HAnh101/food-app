@@ -1,0 +1,1 @@
+export const STORAGE_ACTION_TOKEN_KEY = 'access_token'
