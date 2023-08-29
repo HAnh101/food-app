@@ -2,7 +2,7 @@ import { message } from "antd";
 import { IAdmin, ITable } from "../type";
 import Request, { IRequest } from "./request";
 import { generateJWT } from "./jwt";
-import { STORAGE_ACTION_TOKEN_KEY } from "../utils/constants";
+import { STORAGE_ACCESS_TOKEN_KEY } from "../utils/constants";
 
 
 export const getTable = async (inUsed?: boolean): Promise<ITable[]> => {
@@ -43,7 +43,7 @@ export const login = async (email: string, password: string): Promise<IAdmin | n
       full_name: resp.data[0].full_name
     } as IAdmin
     const token = await generateJWT(data);
-    window.localStorage.setItem(STORAGE_ACTION_TOKEN_KEY, token)
+    window.localStorage.setItem(STORAGE_ACCESS_TOKEN_KEY, token)
     
     return data;
   } else {

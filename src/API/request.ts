@@ -1,8 +1,8 @@
 import axios from "axios";
 import queryString from "query-string";
-import { generateJWT, verifyJWT } from "./jwt";
+import { verifyJWT } from "./jwt";
 import { message } from "antd";
-import { STORAGE_ACTION_TOKEN_KEY } from "../utils/constants";
+import { STORAGE_ACCESS_TOKEN_KEY } from "../utils/constants";
 
 const getQueryString = (query: object) => {
   const result = queryString.stringify(query);
@@ -35,45 +35,43 @@ async function send({
   headers = {},
   newUrl,
 }: IRequest): Promise<IResponse> {
-  const jwt = window.localStorage.getItem(STORAGE_ACTION_TOKEN_KEY) || "";
- 
-  const validateRes = await verifyJWT(jwt, `${method}_${path}`)
-  switch(validateRes) {
+  const jwt = window.localStorage.getItem(STORAGE_ACCESS_TOKEN_KEY) || "";
+  const validateRes = await verifyJWT(jwt, `${method}_${path}`);
+  switch (validateRes) {
     case 403:
-      message.warning("Frobidden!")
+      message.warning("Forbidden!");
       setTimeout(() => window.history.back(), 1000);
       break;
     case 401:
-      message.warning("Expried session!")
-      setTimeout(() => window.location.href = '/authentication', 1000);
+      message.warning("Expired session!");
+      window.localStorage.removeItem(STORAGE_ACCESS_TOKEN_KEY);
+      setTimeout(() => (window.location.href = "/authentication"), 1000);
       break;
     default:
       break;
   }
-  
+
   return new Promise((resolve) => {
     let url =
       (newUrl ? newUrl : process.env.REACT_APP_API_URL) +
-      `${path}` + getQueryString(query);
-
+      `${path}` +
+      getQueryString(query);
     axios({
       method,
       url,
       data,
       headers,
     })
-      .then(async(result) => {  
-        // const token = await generateJWT({ "foo": "bar"})
-        
+      .then(async (result) => {
         return resolve({
           data: result.data,
-          status: result.status
+          status: result.status,
         });
       })
       .catch((error) => {
         return resolve({
           data: error.response.data,
-          status: error.response.status
+          status: error.response.status,
         });
       });
   });
