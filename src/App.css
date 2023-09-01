@@ -19,7 +19,7 @@ body .dark {
 }
 
 body .container {
-  min-width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   background-color: var(--bg-dark-1);
 }
@@ -99,3 +99,25 @@ svg {
   fill: var(--white-color) !important;
 }
 /* ANT MENU */
+
+/* ANT BUTTON */
+.ant-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: var(--primary-color, #ea7c69) !important; */
+
+}
+ 
+[type='reset'], 
+[type='submit'] {
+  background-color: var(--primary-color, #ea7c69) !important;
+}
+
+/* ANT BUTTON */
+
+/* ANT DRAWER */
+.ant-drawer-content {
+  background-color: var(--bg-dark-2, #1f1d2b) !important;
+}
+/* ANT DRAWER */
