@@ -101,13 +101,11 @@ svg {
 /* ANT MENU */
 
 /* ANT BUTTON */
-.ant-btn {
+/* .ant-btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: var(--primary-color, #ea7c69) !important; */
-
-}
+} */
  
 [type='reset'], 
 [type='submit'] {
@@ -115,6 +113,10 @@ svg {
 }
 
 /* ANT BUTTON */
+
+.anticon svg {
+  margin-top: -6px !important;
+}
 
 /* ANT DRAWER */
 .ant-drawer-content {

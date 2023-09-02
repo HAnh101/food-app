@@ -1,4 +1,10 @@
-export type Tag = "Hot Dish" | "Cold Dish" | "Soup" | "Grill" | "Appetizer" | "Dessert";
+export type Tag = 
+  | "Hot Dish" 
+  | "Cold Dish" 
+  | "Soup" 
+  | "Grill" 
+  | "Appetizer" 
+  | "Dessert";
 
 export interface IFood {
   id: number;
@@ -9,6 +15,8 @@ export interface IFood {
   discount_amount: number;
   tag: Tag;
 }
+
+export type INewFood = Omit<IFood, 'id'>;
 
 export interface IOrder {
   id: number;

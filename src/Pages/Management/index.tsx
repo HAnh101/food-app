@@ -1,9 +1,10 @@
 import { Button, List } from 'antd'
-import { IFood } from '../../type'
+import { IFood, INewFood } from '../../type'
 import FoodItem from '../../Components/FoodItem'
 import { PlusOutlined } from '@ant-design/icons'
 import FoodForm from '../../Components/FoodForm'
 import { useState } from 'react'
+import { createFood } from '../../API'
 
 const food: IFood[] = [
     {
@@ -70,8 +71,11 @@ function Management() {
         setIsOpen(false)
         selectedItem !== null && setSelectedItem(null)
     }
-    const onSubmit = () => {
-        setIsOpen(false)
+    const onSubmit = async (data: INewFood) => {
+        createFood(data)
+        .then(() => {
+            setIsOpen(false)
+        })
     }
 
 

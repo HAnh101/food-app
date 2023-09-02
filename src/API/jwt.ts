@@ -36,10 +36,15 @@ export async function verifyJWT(jwt: string, api: string): Promise<number | any>
       return 401;
     }
     
+    // console.log('44', adminAPI.includes(api), !protectedHeader.email);
+    
     if(adminAPI.includes(api) && !protectedHeader.email) {
       return 403;
     }
-
+    
+    // console.log('51', !adminAPI.includes(api),
+    //   (!protectedHeader.table_id || !protectedHeader.email));
+    
     if(!adminAPI.includes(api) && 
     (!protectedHeader.table_id || !protectedHeader.email)) {
       return 403;

@@ -1,17 +1,37 @@
+import { useCallback, useEffect } from "react";
 import { FOOD_CATEGORY } from "../../utils/constants";
 import "./foodFormStyle.scss"
 import { Button, DatePicker, Drawer, Form, Input, Select } from 'antd';
+import { getDetailFoodId } from "../../API";
+import { INewFood } from "../../type";
 
 const { Option } = Select;
 
 interface IFrops {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: () => void;
+    onSubmit: (data: INewFood) => void;
     selectedItemId: number | null
 }
 
 function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
+    const [form] = Form.useForm()    
+
+    const onInitInfoUpdateFood = useCallback(() => {
+        if(selectedItemId && form) {
+            getDetailFoodId(selectedItemId)
+            .then(foodData => {
+                if(foodData) {
+                    form.setFieldsValue(foodData)
+                }
+            })
+        }
+    }, [selectedItemId, form])
+
+    useEffect(() => {
+        onInitInfoUpdateFood()
+    }, [onInitInfoUpdateFood])
+    
     return (
         <Drawer
         title={selectedItemId ? "Update food information" : "Create a new food"}
@@ -22,7 +42,7 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
         closeIcon={null}
         bodyStyle={{ paddingBottom: 80 }}
         >
-        <Form layout="vertical" onFinish={onSubmit}>
+        <Form layout="vertical" onFinish={onSubmit} form={form}>
             <Form.Item
                 name="name"
                 label="Name"
@@ -51,13 +71,21 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
                 label="Price"
                 rules={[
                     { required: true, message: 'Please enter food price' },
-                    { type: 'number', message: 'Invalid food price' }
+                    { min: 0, message: 'Invalid food price' },
+                    {
+                        validator(_, value, cb) {
+                            if(isNaN(value)) {
+                                cb("Invalid food price")
+                            } else {
+                                cb()
+                            }
+                        }
+                    }
                 ]}
             >
                 <Input
                     style={{ width: '100%' }}
                     size="large"
-                    type="number"
                     addonBefore="$"
                     min={0}
                 />
@@ -68,13 +96,25 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
                 label="Discount amount"
                 rules={[
                     { required: true, message: 'Please enter discount amount' },
-                    { type: 'number', message: 'Invalid amount' }
+                    { min: 0, message: 'Invalid amount' },
+                    {
+                        validator(_, value, cb) {
+                            const formPrice = form.getFieldValue("price")
+                            if(isNaN(value)) {
+                                cb("Invalid amount")
+                            } else if(Number(formPrice) <= Number(value)) {
+                                cb("Discount amount must be smaller than price")
+                            } else {
+                                cb()
+                            }
+                        }
+                    }
                 ]}
             >
                 <Input
                     style={{ width: '100%' }}
                     size="large"
-                    type="number"
+                    // type="number"
                     addonBefore="$"
                     min={0}
                 />
@@ -85,6 +125,7 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
                 label="Quantity"
                 rules={[
                     { required: true, message: 'Please enter food quantity' },
+                    { min: 0, message: 'Invalid amount'}
                 ]}
             >
                 <Input
