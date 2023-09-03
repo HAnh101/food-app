@@ -37,7 +37,13 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
         title={selectedItemId ? "Update food information" : "Create a new food"}
         // width={720}
         width={window.screen.availWidth < 400 ? 320 : 520}
-        onClose={onClose}
+        onClose={() => {
+            form.resetFields()
+            onClose()
+            // if(selectedItemId) {
+            //     form.resetFields()
+            // }
+        }}
         open={isOpen}
         closeIcon={null}
         bodyStyle={{ paddingBottom: 80 }}
@@ -45,8 +51,8 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
         <Form 
             layout="vertical" 
             onFinish={(values) => {
-                console.log(values);
-                
+                // console.log(values);
+                form.resetFields()
                 onSubmit(values) 
             }} 
             form={form}

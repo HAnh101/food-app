@@ -38,9 +38,10 @@ function Management() {
             if(selectedItem) {
                 resp = await updateFoodById(data as IFood)
             } else {
-                resp = await createFood(data as INewFood)
-                setIsOpen(!resp)
+                resp = await createFood(data as INewFood)                
             }
+            onGetFoodData()
+            setIsOpen(!resp)
         } catch (error) {
             console.log(__filename, error);
             
