@@ -78,8 +78,8 @@ function Management() {
                 resp = await updateFoodById(data as IFood)
             } else {
                 resp = await createFood(data as INewFood)
-                setIsOpen(!resp)
             }
+            setIsOpen(!resp)
         } catch (error) {
             console.log(__filename, error);
             
