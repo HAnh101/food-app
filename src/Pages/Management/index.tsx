@@ -3,70 +3,31 @@ import { IFood, INewFood } from '../../type'
 import FoodItem from '../../Components/FoodItem'
 import { PlusOutlined } from '@ant-design/icons'
 import FoodForm from '../../Components/FoodForm'
-import { useState } from 'react'
-import { createFood, updateFoodById } from '../../API'
-
-const food: IFood[] = [
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-    {
-        id: 1,
-        name: "Spicy seasoned seafood noodles",
-        price: 2.29,
-        quantity: 20,
-        image: "/assets/SpicySeasonedSeafoodNoodle.svg",
-        discount_amount: 0,
-        tag: "Hot Dish",
-    },
-
-]
+import { useCallback, useEffect, useState } from 'react'
+import { createFood, getFood, updateFoodById } from '../../API'
+import { LIMIT_DISPLAY_ITEM_PER_PAGE } from '../../utils/constants'
 
 function Management() {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState<number | null>(null)
+    const [foodData, setFoodData] = useState<IFood[]>([])
+    const [total, setTotal] = useState(0)
+    const [skip, setSkip] = useState(0)
+    
+    const onGetFoodData = useCallback(() => {
+        getFood(skip)
+            .then(resp => {
+                setFoodData(resp.data)
+                setTotal(resp.total)
+                // console.log(resp); 
+            })
+    }, [skip])
+
+    useEffect(() => {
+        onGetFoodData()
+    }, [onGetFoodData])
+
+
     const onClose = () => {
         setIsOpen(false)
         selectedItem !== null && setSelectedItem(null)
@@ -107,7 +68,7 @@ function Management() {
                     lg: 3,
                     xl: 4,
                 }}
-                dataSource={food}
+                dataSource={foodData}
                 renderItem={(item) => (
                     <List.Item style={{ padding: '12px'}}>
                         <FoodItem onClick={(id: number) => {
@@ -116,6 +77,15 @@ function Management() {
                         }} data={item} />
                     </List.Item>
                 )}
+                pagination={{
+                    total: total,
+                    pageSize: LIMIT_DISPLAY_ITEM_PER_PAGE,
+                    position: 'bottom',
+                    onChange: (newPage: number) => {
+                        setSkip((newPage - 1) * LIMIT_DISPLAY_ITEM_PER_PAGE)
+                        // console.log(newPage); 
+                    }
+                }}
             />
             <FoodForm
                 isOpen={isOpen}

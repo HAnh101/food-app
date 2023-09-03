@@ -90,11 +90,11 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
                     { required: true, message: 'Please enter food price' },
                     { min: 0, message: 'Invalid food price' },
                     {
-                        validator(_, value, cb) {
+                        validator(_, value) {
                             if(isNaN(value)) {
-                                cb("Invalid food price")
+                                return Promise.reject("Invalid food price")
                             } else {
-                                cb()
+                                return Promise.resolve()
                             }
                         }
                     }
@@ -115,14 +115,14 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
                     { required: true, message: 'Please enter discount amount' },
                     { min: 0, message: 'Invalid amount' },
                     {
-                        validator(_, value, cb) {
+                        validator(_, value) {
                             const formPrice = form.getFieldValue("price")
                             if(isNaN(value)) {
-                                cb("Invalid amount")
+                                return Promise.reject("Invalid amount")
                             } else if(Number(formPrice) <= Number(value)) {
-                                cb("Discount amount must be smaller than price")
+                                return Promise.reject("Discount amount must be smaller than price")
                             } else {
-                                cb()
+                                return Promise.resolve()
                             }
                         }
                     }

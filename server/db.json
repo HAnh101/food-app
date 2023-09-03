@@ -15,6 +15,24 @@
       "quantity": "20",
       "tag": "Hot Dish",
       "id": 1
+    },
+    {
+      "name": "Spicy seasoned seafood ",
+      "image": "localhost:3000/assets/spicySeasonedSeafoodNoodles.svg",
+      "price": "2.29",
+      "discount_amount": "0",
+      "quantity": "20",
+      "tag": "Hot Dish",
+      "id": 1
+    },
+    {
+      "name": "Spicy seasoned seafood ",
+      "image": "localhost:3000/assets/spicySeasonedSeafoodNoodles.svg",
+      "price": "2.29",
+      "discount_amount": "0",
+      "quantity": "20",
+      "tag": "Hot Dish",
+      "id": 1
     }
   ],
   "order": [],
