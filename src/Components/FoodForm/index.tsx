@@ -42,7 +42,24 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
         closeIcon={null}
         bodyStyle={{ paddingBottom: 80 }}
         >
-        <Form layout="vertical" onFinish={onSubmit} form={form}>
+        <Form 
+            layout="vertical" 
+            onFinish={(values) => {
+                console.log(values);
+                
+                onSubmit(values) 
+            }} 
+            form={form}
+        >
+            <Form.Item
+                name="id"
+                hidden
+            >
+                <Input
+                    hidden
+                />
+            </Form.Item>
+            
             <Form.Item
                 name="name"
                 label="Name"

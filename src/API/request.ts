@@ -12,7 +12,7 @@ const getQueryString = (query: object) => {
 };
 
 export interface IRequest {
-  method: "GET" | "POST";
+  method: "GET" | "POST" | "PATCH";
   path?: string;
   data?: object;
   query?: object;
@@ -40,7 +40,7 @@ async function send({
   switch (validateRes) {
     case 403:
       message.warning("Forbidden!");
-      setTimeout(() => window.history.back(), 1000);
+      // setTimeout(() => window.history.back(), 1000);
       break;
     case 401:
       message.warning("Expired session!");

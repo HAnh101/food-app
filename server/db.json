@@ -1,109 +1,119 @@
 {
-    "admin": [
-      {
-        "email": "test@example.com",
-        "password": "123456",
-        "full_name": "Admin"
-      }
-    ],
-    "food": [],
-    "order": [],
-    "order_item": [],
-    "table": [
-      {
-        "id": 1,
-        "in_used": false
-      },
-      {
-        "id": 2,
-        "in_used": false
-      },
-      {
-        "id": 3,
-        "in_used": false
-      },
-      {
-        "id": 4,
-        "in_used": false
-      },
-      {
-        "id": 5,
-        "in_used": false
-      },
-      {
-        "id": 6,
-        "in_used": false
-      },
-      {
-        "id": 7,
-        "in_used": false
-      },
-      {
-        "id": 8,
-        "in_used": false
-      },
-      {
-        "id": 9,
-        "in_used": false
-      },
-      {
-        "id": 10,
-        "in_used": false
-      },
-      {
-        "id": 11,
-        "in_used": false
-      },
-      {
-        "id": 12,
-        "in_used": false
-      },
-      {
-        "id": 13,
-        "in_used": false
-      },
-      {
-        "id": 14,
-        "in_used": false
-      },
-      {
-        "id": 15,
-        "in_used": false
-      },
-      {
-        "id": 16,
-        "in_used": false
-      },
-      {
-        "id": 17,
-        "in_used": false
-      },
-      {
-        "id": 18,
-        "in_used": false
-      },
-      {
-        "id": 19,
-        "in_used": false
-      },
-      {
-        "id": 20,
-        "in_used": false
-      },
-      {
-        "id": 21,
-        "in_used": false
-      },
-      {
-        "id": 22,
-        "in_used": false
-      },
-      {
-        "id": 23,
-        "in_used": false
-      },
-      {
-        "id": 24
-      }
-    ]
-  }
+  "admin": [
+    {
+      "email": "test@example.com",
+      "password": "123456",
+      "full_name": "Admin"
+    }
+  ],
+  "food": [
+    {
+      "name": "Spicy seasoned seafood ",
+      "image": "localhost:3000/assets/spicySeasonedSeafoodNoodles.svg",
+      "price": "2.29",
+      "discount_amount": "0",
+      "quantity": "20",
+      "tag": "Hot Dish",
+      "id": 1
+    }
+  ],
+  "order": [],
+  "order_item": [],
+  "table": [
+    {
+      "id": 1,
+      "in_used": false
+    },
+    {
+      "id": 2,
+      "in_used": false
+    },
+    {
+      "id": 3,
+      "in_used": false
+    },
+    {
+      "id": 4,
+      "in_used": false
+    },
+    {
+      "id": 5,
+      "in_used": false
+    },
+    {
+      "id": 6,
+      "in_used": false
+    },
+    {
+      "id": 7,
+      "in_used": false
+    },
+    {
+      "id": 8,
+      "in_used": false
+    },
+    {
+      "id": 9,
+      "in_used": false
+    },
+    {
+      "id": 10,
+      "in_used": false
+    },
+    {
+      "id": 11,
+      "in_used": false
+    },
+    {
+      "id": 12,
+      "in_used": false
+    },
+    {
+      "id": 13,
+      "in_used": false
+    },
+    {
+      "id": 14,
+      "in_used": false
+    },
+    {
+      "id": 15,
+      "in_used": false
+    },
+    {
+      "id": 16,
+      "in_used": false
+    },
+    {
+      "id": 17,
+      "in_used": false
+    },
+    {
+      "id": 18,
+      "in_used": false
+    },
+    {
+      "id": 19,
+      "in_used": false
+    },
+    {
+      "id": 20,
+      "in_used": false
+    },
+    {
+      "id": 21,
+      "in_used": false
+    },
+    {
+      "id": 22,
+      "in_used": false
+    },
+    {
+      "id": 23,
+      "in_used": false
+    },
+    {
+      "id": 24
+    }
+  ]
+}

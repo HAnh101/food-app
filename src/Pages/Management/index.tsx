@@ -4,7 +4,7 @@ import FoodItem from '../../Components/FoodItem'
 import { PlusOutlined } from '@ant-design/icons'
 import FoodForm from '../../Components/FoodForm'
 import { useState } from 'react'
-import { createFood } from '../../API'
+import { createFood, updateFoodById } from '../../API'
 
 const food: IFood[] = [
     {
@@ -71,11 +71,20 @@ function Management() {
         setIsOpen(false)
         selectedItem !== null && setSelectedItem(null)
     }
-    const onSubmit = async (data: INewFood) => {
-        createFood(data)
-        .then(() => {
-            setIsOpen(false)
-        })
+    const onSubmit = async (data: INewFood | IFood) => {
+        try {
+            let resp;
+            if(selectedItem) {
+                resp = await updateFoodById(data as IFood)
+            } else {
+                resp = await createFood(data as INewFood)
+                setIsOpen(!resp)
+            }
+        } catch (error) {
+            console.log(__filename, error);
+            
+        }
+        
     }
 
 

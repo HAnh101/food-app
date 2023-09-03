@@ -52,7 +52,7 @@ export const login = async (email: string, password: string): Promise<IAdmin | n
   }
 }  
 
-export const createFood = async (data: INewFood): Promise<IFood | any> => {
+export const createFood = async (data: INewFood): Promise<IFood | null> => {
   const payload: IRequest = {
     method: "POST",
     path: "food",
@@ -65,6 +65,7 @@ export const createFood = async (data: INewFood): Promise<IFood | any> => {
   if (resp.status === 201) {
     return resp.data as IFood;
   } else {
+    message.error("Create food failed!")
     return null;
   }
 }
@@ -79,9 +80,26 @@ export const getDetailFoodId = async (id: number): Promise<IFood | null> => {
   }
 
   const resp = await Request.send(payload)
+  if (resp.status === 200 && resp.data.length > 0) {
+    return resp.data[0] as IFood;
+  } else {
+    message.error("Get detail food failed!")
+    return null;
+  }
+}
+
+export const updateFoodById = async (data: IFood): Promise<IFood | null> => {
+  const payload: IRequest = {
+    method: "PATCH",
+    path: `food/${data.id}`,
+    data: data 
+  }
+
+  const resp = await Request.send(payload)
   if (resp.status === 200) {
     return resp.data as IFood;
   } else {
+    message.error("Update food failed!")
     return null;
   }
 }
