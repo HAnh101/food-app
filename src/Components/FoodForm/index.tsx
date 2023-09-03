@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { FOOD_CATEGORY } from "../../utils/constants";
 import "./foodFormStyle.scss"
-import { Button, DatePicker, Drawer, Form, Input, Select } from 'antd';
+import { Button, DatePicker, Drawer, Form, FormInstance, Input, Select } from 'antd';
 import { getDetailFoodId } from "../../API";
 import { INewFood } from "../../type";
 
@@ -12,10 +12,10 @@ interface IFrops {
     onClose: () => void;
     onSubmit: (data: INewFood) => void;
     selectedItemId: number | null
+    form: FormInstance
 }
 
-function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
-    const [form] = Form.useForm()    
+function FoodForm({ isOpen, onClose, onSubmit, selectedItemId, form }: IFrops) {
 
     const onInitInfoUpdateFood = useCallback(() => {
         if(selectedItemId && form) {
@@ -37,24 +37,14 @@ function FoodForm({ isOpen, onClose, onSubmit, selectedItemId }: IFrops) {
         title={selectedItemId ? "Update food information" : "Create a new food"}
         // width={720}
         width={window.screen.availWidth < 400 ? 320 : 520}
-        onClose={() => {
-            form.resetFields()
-            onClose()
-            // if(selectedItemId) {
-            //     form.resetFields()
-            // }
-        }}
+        onClose={onClose}
         open={isOpen}
         closeIcon={null}
         bodyStyle={{ paddingBottom: 80 }}
         >
         <Form 
             layout="vertical" 
-            onFinish={(values) => {
-                // console.log(values);
-                form.resetFields()
-                onSubmit(values) 
-            }} 
+            onFinish={onSubmit} 
             form={form}
         >
             <Form.Item

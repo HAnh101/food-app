@@ -6,6 +6,7 @@ import FoodForm from '../../Components/FoodForm'
 import { useCallback, useEffect, useState } from 'react'
 import { createFood, getFood, updateFoodById } from '../../API'
 import { LIMIT_DISPLAY_ITEM_PER_PAGE } from '../../utils/constants'
+import { Form } from 'antd'
 
 function Management() {
     const [isOpen, setIsOpen] = useState(false)
@@ -14,6 +15,8 @@ function Management() {
     const [total, setTotal] = useState(0)
     const [skip, setSkip] = useState(0)
     
+    const [form] = Form.useForm()
+
     const onGetFoodData = useCallback(() => {
         getFood(skip)
             .then(resp => {
@@ -30,6 +33,7 @@ function Management() {
 
     const onClose = () => {
         setIsOpen(false)
+        form.resetFields()
         selectedItem !== null && setSelectedItem(null)
     }
     const onSubmit = async (data: INewFood | IFood) => {
@@ -42,6 +46,7 @@ function Management() {
             }
             onGetFoodData()
             setIsOpen(!resp)
+            form.resetFields()
         } catch (error) {
             console.log(__filename, error);
             
@@ -93,6 +98,7 @@ function Management() {
                 onClose={onClose}
                 onSubmit={onSubmit}
                 selectedItemId={selectedItem}
+                form={form}
             />
         </main>
     )
