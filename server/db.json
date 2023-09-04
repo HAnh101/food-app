@@ -8,7 +8,7 @@
   ],
   "food": [
     {
-      "name": "Spicy seasoned seafood 2",
+      "name": "Spicy seasoned seafood 1",
       "image": "localhost:3000/assets/spicySeasonedSeafoodNoodles.svg",
       "price": "2.29",
       "discount_amount": "0",

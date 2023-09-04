@@ -1,11 +1,9 @@
-import { Button, List, Radio } from 'antd'
-import { IFood, INewFood, Tag } from '../../type'
-import FoodItem from '../../Components/FoodItem'
+import { Button } from 'antd'
+import { IFood, INewFood } from '../../type'
 import { PlusOutlined } from '@ant-design/icons'
 import FoodForm from '../../Components/FoodForm'
-import { useCallback, useEffect, useState } from 'react'
-import { createFood, getFood, updateFoodById } from '../../API'
-import { LIMIT_DISPLAY_ITEM_PER_PAGE, FOOD_CATEGORY } from '../../utils/constants'
+import { useState } from 'react'
+import { createFood, updateFoodById } from '../../API'
 import { Form } from 'antd'
 import FoodList from '../../Components/FoodList'
 
@@ -25,7 +23,6 @@ function Management() {
 
     const onSubmit = async (data: INewFood | IFood) => {
         try {
-            // let resp;
             if(selectedItem) {
                 await updateFoodById(data as IFood)
             } else {
