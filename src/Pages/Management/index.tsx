@@ -1,12 +1,13 @@
-import { Button, List } from 'antd'
-import { IFood, INewFood } from '../../type'
+import { Button, List, Radio } from 'antd'
+import { IFood, INewFood, Tag } from '../../type'
 import FoodItem from '../../Components/FoodItem'
 import { PlusOutlined } from '@ant-design/icons'
 import FoodForm from '../../Components/FoodForm'
 import { useCallback, useEffect, useState } from 'react'
 import { createFood, getFood, updateFoodById } from '../../API'
-import { LIMIT_DISPLAY_ITEM_PER_PAGE } from '../../utils/constants'
+import { LIMIT_DISPLAY_ITEM_PER_PAGE, FOOD_CATEGORY } from '../../utils/constants'
 import { Form } from 'antd'
+
 
 function Management() {
     const [isOpen, setIsOpen] = useState(false)
@@ -14,17 +15,22 @@ function Management() {
     const [foodData, setFoodData] = useState<IFood[]>([])
     const [total, setTotal] = useState(0)
     const [skip, setSkip] = useState(0)
-    
+    const [filterTag, setFilterTag] = useState<Tag>("Hot Dish")
+
+
     const [form] = Form.useForm()
 
     const onGetFoodData = useCallback(() => {
-        getFood(skip)
+        getFood({
+            skip: skip,
+            tag: filterTag
+        })
             .then(resp => {
                 setFoodData(resp.data)
                 setTotal(resp.total)
                 // console.log(resp); 
             })
-    }, [skip])
+    }, [skip, filterTag])
 
     useEffect(() => {
         onGetFoodData()
@@ -57,13 +63,34 @@ function Management() {
 
     return (
         <main>
-            <Button
-                icon={<PlusOutlined />}
-                size="large"
-                onClick={() => setIsOpen(true)}
+            <div>
+                <Button
+                    icon={<PlusOutlined />}
+                    size="large"
+                    onClick={() => setIsOpen(true)}
+                >
+                    Create new dish
+                </Button>
+            </div>
+            <br />
+            <Radio.Group 
+                size='large'
+                onChange={(event) => {
+                    setFilterTag(event.target.value)
+                    console.log('value', event.target.value);
+                    
+                }} 
+                value={filterTag}
             >
-                Create new dish
-            </Button>
+                {
+                    FOOD_CATEGORY.map((_item) => {
+                        return (
+                            <Radio.Button value={_item} key={_item}>{_item}</Radio.Button>
+                        )
+                    })
+                }
+            </Radio.Group>
+            <br />
             <List
                 grid={{
                     gutter: 16,
