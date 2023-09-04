@@ -1,0 +1,90 @@
+import { List, Radio } from "antd";
+import { FOOD_CATEGORY, LIMIT_DISPLAY_ITEM_PER_PAGE } from "../../utils/constants";
+import FoodItem from "../FoodItem";
+import { useCallback, useEffect, useState } from "react";
+import { getFood } from "../../API";
+import { IFood, Tag } from "../../type";
+
+interface IProps {
+    onEdit?: (id: number) => void;
+}
+
+function FoodList({
+    onEdit
+}: IProps) {
+    const [foodData, setFoodData] = useState<IFood[]>([])
+    const [total, setTotal] = useState(0)
+    const [skip, setSkip] = useState(0)
+    const [filterTag, setFilterTag] = useState<Tag>("Hot Dish")
+
+    const onGetFoodData = useCallback(() => {
+        getFood({
+            skip: skip,
+            tag: filterTag
+        })
+            .then(resp => {
+                setFoodData(resp.data)
+                setTotal(resp.total)
+                // onGetFoodData()
+                // console.log(resp); 
+            })
+    }, [skip, filterTag])
+
+    useEffect(() => {
+        onGetFoodData()
+    }, [onGetFoodData])
+    
+    return (
+        <>
+            <Radio.Group 
+                size='large'
+                onChange={(event) => {
+                    setFilterTag(event.target.value)
+                    console.log('value', event.target.value);
+                    
+                }} 
+                value={filterTag}
+            >
+                {
+                    FOOD_CATEGORY.map((_item) => {
+                        return (
+                            <Radio.Button value={_item} key={_item}>{_item}</Radio.Button>
+                        )
+                    })
+                }
+            </Radio.Group>
+            <br />
+            <List
+                grid={{
+                    gutter: 16,
+                    column: 5,
+                    xs: 1,
+                    sm: 2,
+                    md: 2,
+                    lg: 3,
+                    xl: 4,
+                }}
+                dataSource={foodData}
+                renderItem={(item) => (
+                    <List.Item style={{ padding: '12px'}}>
+                        <FoodItem
+                            onClick={onEdit} 
+                            data={item}
+                        />
+                    </List.Item>
+                )}
+                pagination={{
+                    total: total,
+                    pageSize: LIMIT_DISPLAY_ITEM_PER_PAGE,
+                    position: 'bottom',
+                    onChange: (newPage: number) => {
+                        setSkip((newPage - 1) * LIMIT_DISPLAY_ITEM_PER_PAGE)
+                        // console.log(newPage); 
+                    }
+                }}
+            />
+        </>
+    )
+}
+
+export default FoodList;
