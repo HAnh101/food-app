@@ -1,5 +1,5 @@
 import { message } from "antd";
-import { IAdmin, IFood, INewFood, ITable, Tag } from "../type";
+import { IAdmin, IFood, INewFood, INewOrder, INewOrderItem, IOrder, IOrderItem, ITable, Tag } from "../type";
 import Request, { IRequest } from "./request";
 import { generateJWT } from "./jwt";
 import { LIMIT_DISPLAY_ITEM_PER_PAGE, STORAGE_ACCESS_TOKEN_KEY } from "../utils/constants";
@@ -13,7 +13,7 @@ export const getTable = async (inUsed?: boolean): Promise<ITable[]> => {
   if (inUsed !== undefined || inUsed !== null) {
     payload.query = {
       in_used: inUsed
-    } 
+    }
   }
 
   const resp = await Request.send(payload)
@@ -44,7 +44,7 @@ export const login = async (email: string, password: string): Promise<IAdmin | n
     } as IAdmin
     const token = await generateJWT(data);
     window.localStorage.setItem(STORAGE_ACCESS_TOKEN_KEY, token)
-    
+
     return data;
   } else {
     message.warning("Invalid credential!")
@@ -61,7 +61,7 @@ export const createFood = async (data: INewFood): Promise<IFood | null> => {
 
   const resp = await Request.send(payload)
   // console.log(resp);
-  
+
   if (resp.status === 201) {
     return resp.data as IFood;
   } else {
@@ -92,7 +92,7 @@ export const updateFoodById = async (data: IFood): Promise<IFood | null> => {
   const payload: IRequest = {
     method: "PATCH",
     path: `food/${data.id}`,
-    data: data 
+    data: data
   }
 
   const resp = await Request.send(payload)
@@ -127,7 +127,7 @@ export const getFood = async ({
       "_start": skip,
       "_limit": limit,
       "tag": tag,
-    }  
+    }
   }
 
   const resp = await Request.send(payload)
@@ -144,7 +144,37 @@ export const getFood = async ({
   }
 }
 
+export const createOrder = async (data: INewOrder): Promise<IOrder | undefined> => {
+  const payload: IRequest = {
+    method: "POST",
+    path: "order",
+    data: data
+  };
 
+  const resp = await Request.send(payload);
+  if (resp.status === 201) {
+    return resp.data;
+  } else {
+    message.error("Payment failed!")
+    return undefined;
+  }
+}
+
+export const createOrderItem = async (data: INewOrderItem[]): Promise<boolean> => {
+  const payload: IRequest = {
+    method: "POST",
+    path: "order_item",
+    data: data
+  };
+
+  const resp = await Request.send(payload);
+  if (resp.status === 201) {
+    return true;
+  } else {
+    message.error("Payment failed!")
+    return false;
+  }
+}
 
 
 
@@ -153,20 +183,20 @@ export const getFood = async ({
 
 
 export const getOrders = () => {
-    return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
-  };
-  
-  export const getRevenue = () => {
-    return fetch("https://dummyjson.com/carts").then((res) => res.json());
-  };
-  
-  export const getInventory = () => {
-    return fetch("https://dummyjson.com/products").then((res) => res.json());
-  };
-  
-  export const getCustomers = () => {
-    return fetch("https://dummyjson.com/users").then((res) => res.json());
-  };
-  export const getComments = () => {
-    return fetch("https://dummyjson.com/comments").then((res) => res.json());
-  };
+  return fetch("https://dummyjson.com/carts/1").then((res) => res.json());
+};
+
+export const getRevenue = () => {
+  return fetch("https://dummyjson.com/carts").then((res) => res.json());
+};
+
+export const getInventory = () => {
+  return fetch("https://dummyjson.com/products").then((res) => res.json());
+};
+
+export const getCustomers = () => {
+  return fetch("https://dummyjson.com/users").then((res) => res.json());
+};
+export const getComments = () => {
+  return fetch("https://dummyjson.com/comments").then((res) => res.json());
+};

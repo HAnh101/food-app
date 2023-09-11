@@ -1,7 +1,6 @@
 export const adminAPI = [
     'POST_food' ,
     'PUT_food' ,
-    'PATCH_food' ,
     'DELETE_food' ,
     'POST_order' ,
     'PUT_order' ,

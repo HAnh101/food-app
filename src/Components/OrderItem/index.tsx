@@ -1,7 +1,6 @@
 import { DeleteOutlined } from "@ant-design/icons"
 import { Button, Card, Input, List } from "antd"
 import { ICart } from "../../type";
-import { useState } from "react";
 
 interface IProps {
     data: ICart[];
