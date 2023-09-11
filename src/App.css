@@ -108,7 +108,7 @@ svg {
 } */
  
 [type='reset'], 
-[type='submit'] {
+[type='submit'], .ant-btn-primary {
   background-color: var(--primary-color, #ea7c69) !important;
 }
 

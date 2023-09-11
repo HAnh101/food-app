@@ -18,6 +18,14 @@ export interface IFood {
 
 export type INewFood = Omit<IFood, 'id'>;
 
+export interface ICart {
+  foodData: IFood;
+  // price: number;
+  quantity: number;
+  note: string;
+
+}
+
 export interface IOrder {
   id: number;
   total_price: number;
@@ -30,11 +38,13 @@ export interface IOrder {
 
 export interface IOrderItem {
   id: number;
+  quantity: number;
   order_id: number;
   food_id: number;
   price: number;
   discount_amount: number;
   total: number;
+  note: string;
 }
 
 export interface ITable {
