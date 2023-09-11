@@ -50,7 +50,7 @@ export const login = async (email: string, password: string): Promise<IAdmin | n
     message.warning("Invalid credential!")
     return null
   }
-}  
+}
 
 export const createFood = async (data: INewFood): Promise<IFood | null> => {
   const payload: IRequest = {

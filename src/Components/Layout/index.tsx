@@ -4,6 +4,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   PieChartOutlined,
+  SearchOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -112,22 +113,27 @@ function CommonLayout() {
               })()}
             </>
           ) : (
-            <div className="flex justify-between w-full px-2">
+            <div className="flex justify-between w-full px-6 py-3">
               <div>
                 <div style={{
                   color: 'var(--white-color)',
+                  fontSize: '28px',
+                  fontWeight: 600,
+                  lineHeight: "140%"
                 }}>
                   Restaurant
                 </div>
                 <span style={{
                   fontSize: '16px',
                   lineHeight: '140%',
-                  fontWeight: '400',
-                  color: 'var(--text-lighter)'
+                  fontWeight: 400,
+                  color: 'var(--text-light)',
+                  height: 'fit-content',
+                  marginTop: '6px'
                 }}>{moment().format('dddd, Do MMM')}</span>
               </div>
               <div>
-                <Input placeholder="Search for food, coffe, etc, ..."/>
+                <Input prefix={<SearchOutlined />} placeholder="Search for food, coffe, etc, ..."/>
 
               </div>
             </div>
