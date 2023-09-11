@@ -94,8 +94,6 @@ function Dashboard() {
         bodyStyle={{ paddingBottom: 80 }}
         footer={(
           <Space>
-            {/* <Button size = "large" type="primary" color = {colorPrimary}>Buy</Button>
-            <Button size="large">Cancel</Button> */}
             <Button disabled={orderItem.length === 0} size = "large" type="primary" color = {colorPrimary}>Buy</Button>
             <Button onClick={()=>{setIsOpen(false)}} size="large">Cancel</Button>
           </Space>
