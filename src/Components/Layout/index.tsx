@@ -7,7 +7,8 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Input, Layout, Menu, theme } from "antd";
+import moment from "moment";
 
 const { Header, Content, Sider } = Layout;
 
@@ -90,6 +91,7 @@ function CommonLayout() {
             textTransform: "capitalize",
             fontSize: "28px",
             display: "flex",
+            height: 'fit-content'
           }}
         >
           {window.location.href.includes("management") ? (
@@ -110,7 +112,25 @@ function CommonLayout() {
               })()}
             </>
           ) : (
-            <>Jaegar Resto</>
+            <div className="flex justify-between w-full px-2">
+              <div>
+                <div style={{
+                  color: 'var(--white-color)',
+                }}>
+                  Restaurant
+                </div>
+                <span style={{
+                  fontSize: '16px',
+                  lineHeight: '140%',
+                  fontWeight: '400',
+                  color: 'var(--text-lighter)'
+                }}>{moment().format('dddd, Do MMM')}</span>
+              </div>
+              <div>
+                <Input placeholder="Search for food, coffe, etc, ..."/>
+
+              </div>
+            </div>
           )}
         </Header>
         <Content style={{ margin: "0 16px" }}>

@@ -1,20 +1,21 @@
 import { Button, Card } from 'antd'
 import { IFood } from '../../type'
 import "./foodStyle.scss"
-import { EditOutlined } from '@ant-design/icons'
+import { EditOutlined, PlusOutlined } from '@ant-design/icons'
 
 interface IProps {
     data: IFood
-    onClick?: (id: number) => void
+    onClick: (id: number) => void
+    type: "view" | "create/edit"
 }
 
-function FoodItem({ data, onClick }: IProps) {
+function FoodItem({ data, onClick, type }: IProps) {
     return (
         <div className='food-item'>
             <Card bordered={false}>
-                <img 
-                    src={data.image} 
-                    alt={data.name} 
+                <img
+                    src={data.image}
+                    alt={data.name}
                     onError={(e) => {
                         (e.target as HTMLImageElement).src = "/assets/SpicySeasonedSeafoodNoodle.svg"
                     }}
@@ -22,24 +23,20 @@ function FoodItem({ data, onClick }: IProps) {
                 <div className='food-name'>{data.name}</div>
                 <div className='food-info'>
                     <span>$ {(data.price - data.discount_amount).toLocaleString()}</span>
-                    <img src='/assets/ellipse.svg' alt='ellipse'/>
+                    <img src='/assets/ellipse.svg' alt='ellipse' />
                     <span>$ {data.quantity} Bowl(s)</span>
                 </div>
             </Card>
-            {
-                onClick && (
-                    <Button
-                        icon={
-                            <EditOutlined />
-                        }
-                        size='large'
-                        className='edit-btn'
-                        onClick={() => onClick(data.id)}
-                    >
-                        Edit dish
-                    </Button>
-                )
-            }
+            <Button
+                icon={type === 'view' ? <PlusOutlined /> : <EditOutlined />}
+                size='large'
+                className='edit-btn'
+                onClick={() => onClick(data.id)}
+            >
+                {
+                    type === 'view' ? 'Add to order' : 'Edit dish'
+                }
+            </Button>
         </div>
     )
 }

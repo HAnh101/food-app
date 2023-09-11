@@ -13,6 +13,7 @@ import Authentication from "./Pages/Authentication";
 import Login from "./Pages/Login";
 import { STORAGE_ACCESS_TOKEN_KEY } from "./utils/constants";
 import { STORAGE_KEY as ADMIN_STORAGE_KEY } from "./redux/adminSlice";
+import { STORAGE_KEY as USER_STORAGE_KEY } from "./redux/userSlice";
 import Lodash from 'lodash'
 import Management from "./Pages/Management";
 
@@ -20,6 +21,15 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    loader: () => {
+      const storageUserData = JSON.parse(window.localStorage.getItem(USER_STORAGE_KEY) || "{}")
+      const token = window.localStorage.getItem(STORAGE_ACCESS_TOKEN_KEY)
+      if (!Lodash.isEmpty(storageUserData) && token) {
+        return null;
+      } else {
+        return redirect('/authentication');
+      }
+    },
     children: [
       {
         path: "/",
@@ -45,7 +55,7 @@ const router = createBrowserRouter([
     loader: () => {
       const storageAdminData = JSON.parse(window.localStorage.getItem(ADMIN_STORAGE_KEY) || "{}")
       const token = window.localStorage.getItem(STORAGE_ACCESS_TOKEN_KEY)
-      if (!Lodash.isEmpty(storageAdminData)  && token) {
+      if (!Lodash.isEmpty(storageAdminData) && token) {
         return null;
       } else {
         return redirect('/authentication');

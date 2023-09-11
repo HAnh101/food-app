@@ -114,7 +114,7 @@ svg {
 
 /* ANT BUTTON */
 
-.anticon svg {
+.ant-btn .anticon svg {
   margin-top: -6px !important;
 }
 
